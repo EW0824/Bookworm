@@ -26,18 +26,21 @@ struct ContentView: View {
                     NavigationLink {
                         DetailView(book: book)
                     } label: {
+                        
                         HStack {
                             EmojiRatingView(rating: book.rating)
                                 .font(.largeTitle)
                             
                             VStack(alignment: .leading){
                                 Text(book.title ?? "Unknown Title")
+                                    .foregroundColor((book.rating==1) ? .red : .primary)
                                     .font(.headline)
                                 
                                 Text(book.author ?? "Unknown Author")
                                     .foregroundColor(.secondary)
                             }
                         }
+                        
                     }
                 }
                 .onDelete(perform: deleteBooks)

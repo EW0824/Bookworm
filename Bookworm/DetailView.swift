@@ -18,13 +18,15 @@ struct DetailView: View {
     
     let book: Book
     
+
     var body: some View {
         
         ScrollView {
             ZStack(alignment: .bottomTrailing) {
                 Image(book.genre ?? "Fantasy")
                     .resizable()
-                    .scaledToFit()
+//                    .scaledToFit()
+                    .frame(height: 300)
                 
                 Text(book.genre?.uppercased() ?? "FANTASY")
                     .font(.caption)
@@ -36,15 +38,22 @@ struct DetailView: View {
                     .offset(x:-5, y:-5)
             }
             
-            Text(book.author ?? "Unknown Author")
-                .font(.title)
-                .foregroundColor(.secondary)
+            VStack(alignment: .leading) {
+                
+                Text("**Written by:** \(book.author ?? "Unknown Author")")
+                    .font(.title)
+                    .foregroundColor(.secondary)
+                
+                Text("Reviewed on: _\(book.date?.formatted(date: .abbreviated, time: .omitted) ?? "N/A")_")
+                
+                Text(book.review ?? "No review")
+                    .padding(.vertical)
+                
+                RatingView(rating: .constant(Int(book.rating)))
+                    .font(.largeTitle)
+            }
             
-            Text(book.review ?? "No review")
-                .padding()
-            
-            RatingView(rating: .constant(Int(book.rating)))
-                .font(.largeTitle)
+
         }
         .navigationTitle(book.title ?? "Unknown Book")
         .navigationBarTitleDisplayMode(.inline)

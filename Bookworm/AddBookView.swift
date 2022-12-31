@@ -22,7 +22,7 @@ struct AddBookView: View {
     @State private var genre = ""
     @State private var review = ""
     
-    let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
+    let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller", "Others"]
 
     
     var body: some View {
@@ -62,11 +62,15 @@ struct AddBookView: View {
                         newBook.rating = Int16(rating)
                         newBook.genre = genre
                         newBook.review = review
+                        newBook.date = Date.now
+                        
+                        if newBook.review == "" {newBook.review = "No review"}
                         
                         try? moc.save()
                         
                         dismiss()
                     }
+                    .disabled(title.isEmpty || author.isEmpty || genre.isEmpty)
                 }
             }
             .navigationTitle("Add Book")

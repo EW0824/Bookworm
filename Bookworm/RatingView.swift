@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RatingView: View {
     
+    // @Binding is particularly useful when building custom UI components (ability to share data between views is very useful)
     @Binding var rating: Int
     
     var label = ""
